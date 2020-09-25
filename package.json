@@ -1,0 +1,17 @@
+{
+  "name": "pun_io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Shawn Contant <shawnc366@gmail.com> (http://www.shawncontant.com)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request-promise": "^4.2.6",
+    "twitch": "^4.2.4"
+  }
+}
