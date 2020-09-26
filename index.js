@@ -22,13 +22,8 @@ app.listen(process.env.PORT, () => {
 
 const authProvider = new StaticAuthProvider(config.client_id, config.access_token);
 const client = new ApiClient({authProvider});
-const videos = client.helix.videos.getVideosByUser('24437603');
-videos.then(vids => {
-	//console.log('vids gotten');
-	//console.log(vids.data[0]._data);
-});
 
-const channels = ['shawntc'];
+const channels = config.channels;
 const bot = new twitchBot({
 	username: 'pun_io',
 	oauth: config.bot_oauth,
@@ -37,7 +32,7 @@ const bot = new twitchBot({
 bot.on('join', channel => console.log('Joined', channel));
 bot.on('message', chatter => {
 	const {username, message, channel} = chatter;
-	console.log(`[${channel}] ${username}: ${message}`);
+	// console.log(`[${channel}] ${username}: ${message}`);
 	if (message.toLowerCase() == 'hi pun_io') {
 		bot.say(`Hello ${username}!`, channel);
 	} else {
@@ -61,8 +56,11 @@ bot.on('message', chatter => {
 		
 		}
 		if (command == '!punmark') {
-			client.helix.users.getUserByName(channel).then(user => {
+			console.log('channel is',channel)
+			const channelFixed = channel.replace('#', '');
+			client.helix.users.getUserByName(channelFixed).then(user => {
 				const id = user.id;
+				console.log('id is', id);
 				client.helix.streams.getStreamByUserId(user.id).then(stream => {
 					//console.log(stream.);
 					const {started_at} = stream._data;
@@ -93,8 +91,10 @@ bot.on('message', chatter => {
 			})//.then(result => console.log(result[0][0].link))
 			.then(result => {
 				if (result[0][0]) {
-					const {link, channel} = result[0][0];
-					console.log(`(${channel}): ${link}`);
+					//const {link, channel} = result[0][0];
+					const link = result[0][0].link;
+					const vidChannel = result[0][0].channel;
+					bot.say(`(${vidChannel}): ${link}`, channel);	
 				} else {
 					console.log('Not found');
 				}
