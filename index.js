@@ -97,6 +97,7 @@ bot.on('message', chatter => {
 					bot.say(`(${vidChannel}): ${link}`, channel);	
 				} else {
 					console.log('Not found');
+					bot.say('Not found', channel);
 				}
 			})
 			.catch(err => console.log('Ouch', err));
