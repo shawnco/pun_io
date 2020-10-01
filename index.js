@@ -23,7 +23,7 @@ app.listen(process.env.PORT, () => {
 const authProvider = new StaticAuthProvider(config.client_id, config.access_token);
 const client = new ApiClient({authProvider});
 
-const channels = config.channels;
+const channels = ['shawntc']; // config.channels;
 const bot = new twitchBot({
 	username: 'pun_io',
 	oauth: config.bot_oauth,
@@ -54,6 +54,12 @@ bot.on('message', chatter => {
 				bot.say(joke, channel);
 			});
 		
+		}
+		if (command == '!punlenny') {
+			bot.say('( ͡° ͜ʖ ͡°)', channel);
+		}
+		if (command == '!punshrug') {
+			bot.say('\¯\\_(ツ)_/¯', channel);
 		}
 		if (command == '!punmark') {
 			console.log('channel is',channel)
