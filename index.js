@@ -15,6 +15,7 @@ const CommandParser = require('./command_parser');
 const Responder = require('./responder');
 const Adder = require('./adder');
 const Rekt = require('./rekt');
+const EightBall = require('./eightball');
 const {db, getAllChannels, Channel} = require('./db');
 
 console.log(config)
@@ -96,6 +97,12 @@ getAllChannels().then(channels => {
 			break;
 		    case '!pwinpls':
 			chatter.say(`${parser.arguments[0]} win pls`);
+		    case '!attitude':
+			chatter.say('Not with that attitude!');
+		    case '!punball':
+			const ball = new EightBall();
+			const answer = ball.shake();
+			chatter.say(answer);
 		    default:
 			break;
 		}
