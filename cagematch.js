@@ -5,7 +5,7 @@ class Cagematch {
     this.eventUrl = null;
   }
 
-  async setEvent(url) {
+  setEvent(url) {
     this.eventUrl = url;
     console.log('Event URL set');
     return 'Event URL set';
@@ -20,17 +20,17 @@ class Cagematch {
     const page = await browser.newPage();
     try {
       await page.goto(this.eventUrl);
-      const name = await page.locator('div.InformationBowRow')
+      const name = await page.locator('div.InformationBoxRow')
         .nth(0)
-        .locator('div.InformationBowContents')
+        .locator('div.InformationBoxContents')
         .innerText();
-      const date = await page.locator('div.InformationBowRow')
+      const date = await page.locator('div.InformationBoxRow')
         .nth(1)
-        .locator('div.InformationBowContents')
+        .locator('div.InformationBoxContents')
         .innerText();
-      const promotion = await page.locator('div.InformationBowRow')
+      const promotion = await page.locator('div.InformationBoxRow')
         .nth(2)
-        .locator('div.InformationBowContents')
+        .locator('div.InformationBoxContents')
         .innerText();
       return `${name}, ${date} (${promotion})`;
     } catch (err) {

@@ -1,6 +1,6 @@
 {
   "name": "pun_io",
-  "version": "1.0.0",
+  "version": "2.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "author": "Shawn Contant <shawnc366@gmail.com> (http://www.shawncontant.com)",
   "license": "ISC",
   "dependencies": {
+    "@playwright/test": "^1.54.1",
     "axios": "^1.10.0",
     "express": "^4.21.2",
     "path": "^0.12.7",

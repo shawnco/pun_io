@@ -8,6 +8,7 @@ const CommandParser = require('./command_parser');
 const Responder = require('./responder');
 const Rekt = require('./rekt');
 const EightBall = require('./eightball');
+const Cagematch = require('./cagematch');
 
 app.listen(process.env.PORT, () => {
 	console.log('Pun_IO is live');
@@ -31,6 +32,7 @@ const start = async () => {
 		channels: config.channels,
 	});
 	await client.connect();
+	const cagematch = new Cagematch();
 	client.on('message', (channel, tags, message, self) => {
 		if (self) return;
 		const {username} = tags;
@@ -73,6 +75,33 @@ const start = async () => {
 				const ball = new EightBall();
 				const answer = ball.shake();
 				chatter.say(answer);
+				break;
+			case '!set-event':
+				if (parser.arguments.length < 1) {
+					chatter.say('Usage: !set-event <event_url>');
+				} else {
+					chatter.say(cagematch.setEvent(parser.arguments[0]));
+				}
+				break;
+			case '!get-event':
+				cagematch.getEvent().then((event) => {
+					chatter.say(event);
+				}).catch((err) => {
+					console.error('Error getting event:', err);
+					chatter.say('Error getting event details');
+				});
+				break;
+			case '!get-match':
+				if (parser.arguments.length < 1) {
+					chatter.say('Usage: !get-match <match_id>');
+				} else {
+					cagematch.getMatch(parser.arguments[0]).then((match) => {
+						chatter.say(match);
+					}).catch((err) => {
+						console.error('Error getting match:', err);
+						chatter.say('Error getting match details');
+					});
+				}
 				break;
 			default:
 				break;

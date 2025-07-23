@@ -6,7 +6,7 @@ class Chatter {
 
   say(message) {
     try {
-      this.bot.say(message, this.channel);
+      this.bot.say(this.channel, message);
     } catch (e) {
       console.log('Exception', e);
     }
